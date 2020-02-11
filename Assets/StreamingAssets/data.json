@@ -1,0 +1,45 @@
+{
+
+	"bonuses": [
+		{"id": 0, "positive": true, "name": "incSpeed", "itemID": 0, "assetName": "bonus", "time": 3}	
+	],
+
+	"bonusItems": [
+		{"id":0, "name":"match"},
+		{"id":1, "name":"stick"},
+		{"id":2, "name":"ball"}
+	],
+
+	"blocks": [
+		{"id": 0, "scores": 5, "lives": 1, "colorID": 0, "bonusProbability": 0, "assetName": "block"},
+		{"id": 0, "scores": 5, "lives": 2, "colorID": 1, "bonusProbability": 0, "assetName": "block"},		
+		{"id": 0, "scores": 5, "lives": 3, "colorID": 2, "bonusProbability": 0, "assetName": "block"},
+		{"id": 0, "scores": 5, "lives": 999, "colorID": 3, "bonusProbability": 0, "assetName": "block"}		
+	],
+
+	"colors":[
+		{"id": 0, "value":[1,0,0,1]},
+		{"id": 1, "value":[0,1,0,1]},
+		{"id": 2, "value":[0,0,1,1]},
+		{"id": 3, "value":[0,0,0,1]}
+	],
+
+	"ball":{
+		"speed":5
+	},
+
+	"stick":{
+		"speed":5,
+		"assetName": "stick"
+	},
+
+	"player":{
+		"lives":5
+	},
+
+	"levels":[
+		{"id":0, "bonuses":[]},
+		{"id":1, "bonuses":[]},
+		{"id":3, "bonuses":[]}
+	]
+}
