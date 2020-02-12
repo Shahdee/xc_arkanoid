@@ -4,13 +4,34 @@ using UnityEngine;
 
 public class BaseVis : ReusableObject
 {
-   public Collider2D collider;
+
+   Collider2D _colliderObj;
+
+   public Collider2D colliderObj{
+      get{
+        if (_colliderObj == null)
+            _colliderObj = GetComponent<Collider2D>();
+
+         return _colliderObj;
+      }
+      set{
+         _colliderObj = value;
+      }
+   }
 
    public SpriteRenderer sprite;
 
+   Transform _transformObj;
 
-   public override void ClearForBuffer(){
+   public Transform transformObj{
+      get{
+        if (_transformObj == null)
+            _transformObj = transform;
 
-      // turn off collider 
+         return _transformObj;
+      }
+      set{
+         _transformObj = value;
+      }
    }
 }

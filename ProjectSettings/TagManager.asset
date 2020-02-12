@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ball
+  - bonus
+  - block
+  - stick
+  - wall
+  - floor
   layers:
   - Default
   - TransparentFX

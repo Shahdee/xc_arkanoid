@@ -33,6 +33,14 @@ public class MapParser : MonoBehaviour
         return Color.white;
     }
 
+    public bool HasLevel(int level){
+        return (level < maps.Length);
+    }
+
+    public bool isLastLevel(int lvl){
+        return (lvl == maps.Length-1);
+    }
+
     // QA 
     // color -> block id + 
     // x,y -> position on scene 

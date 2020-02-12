@@ -47,7 +47,7 @@ public class EntityMan : MonoBehaviour
         if (string.IsNullOrEmpty(name))
             return null;
 
-        Debug.Log("GetEntity " + name);
+        // Debug.Log("GetEntity " + name);
 
         for (int i=0; i<objectsInPool.Count; i++){
             if (! objectsInPool[i].activeInHierarchy && objectsInPool[i].name.Contains(name)){ // TODO - I really dont like using contains here. How can I improve it?

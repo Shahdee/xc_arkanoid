@@ -6,52 +6,86 @@ using Game.Models;
 // model 
 // visual
 
-public class Stick 
+public class Stick : IUpdatable, IFixUpdatable, IBonusable
 {
     StickModel _model;
-
     public StickModel model{
         get{return _model;}
         private set{_model = value;}
     }
 
     StickVis _visual;
-
     public StickVis visual{
         get{return _visual;}
         private set{_visual = value;}
     }
-    
+
     public void Setup(StickModel m){
         model = m;
+
+        CreateVisual();
+        SetParams();
     }
 
-    public void CreateVisual(){
-    //   GameObject gobject = MainLogic.GetMainLogic().GetEntityManager().GetEntity(meta.assetName);
-    //   gobject.SetActive(true);     
-    //   visual = gobject.GetComponent<SushiVisual>();
+    public void Reset(){
+        SetParams();
+        ReturnVisual();
+    }   
 
-    //   Debug.Log("CreateVisual " + visual);
+    void SetParams(){
+        visual.SetParams(model.speed);
+    }
 
-      //TODO subscribe to events - ? 
-
+    void CreateVisual(){
+        GameObject gobject = GameMan.instance.GetEntityMan().GetEntity(model.assetName);
+        gobject.SetActive(true);     
+        gobject.transform.SetParent(GameMan.instance.GetLevelMan().trsParent);
+        visual = gobject.GetComponent<StickVis>();
    }
 
    public void ReturnVisual(){
-      // TODO unsubscribe from events 
-      // return to pool 
-    //   if (visual != null){
-    //      MainLogic.GetMainLogic().GetEntityManager().ReturnEntity(visual);
-    //      visual = null;
-    //   }     
+      if (visual != null){
+         GameMan.instance.GetEntityMan().ReturnEntity(visual);
+         visual = null;
+      }     
    }
 
+    public void ApplyBonus(BonusModel model){
+        switch(model.bonusCharacteristic){
+            case BonusModel.BonusCharacteristic.Speed:
+                float newSpeed = model.speed * model.value;
+                visual.SetParams(newSpeed);
+            break;
 
-    public void PutToDefaultPlace(){
-        // Screen.width
+            default:
 
+            break;
+        }
     }
 
-    // QA 
-    // from where to control the stick movement?
+    public void RemoveBonus(BonusModel model){
+        switch(model.bonusCharacteristic){
+            case BonusModel.BonusCharacteristic.Speed:
+                visual.SetParams(model.speed);
+            break;
+
+            default:
+
+            break;
+        }
+    }
+
+    public void PlaceToCenter(){    
+        visual.PlaceToCenter();
+    }
+
+    public void UpdatePhysics(float delta){
+        visual.UpdatePhysics(delta);
+    }
+
+    public void UpdateMe(float delta){
+        visual.UpdateMe(delta);
+    }
+
+    
 }

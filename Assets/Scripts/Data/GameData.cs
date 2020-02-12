@@ -16,12 +16,4 @@ public class GameData
     public StickModel stick;
     public PlayerModel player;
 
-    public LevelModel[] levels;
-
-    // stick
-    // ball
-    // bonuses 
-
-    // level data - ? 
-
 }

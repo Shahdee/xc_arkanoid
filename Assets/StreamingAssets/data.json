@@ -1,7 +1,15 @@
 {
 
 	"bonuses": [
-		{"id": 0, "positive": true, "name": "incSpeed", "itemID": 0, "assetName": "bonus", "time": 3}	
+		{"id": 0, "name": "incSpeed", "value": 1.5, "speed": 5, "itemID": 1, "characteristicID":0, "assetName": "bonus", "time": 3},
+		{"id": 1, "name": "decSpeed", "value": 0.5, "speed": 5, "itemID": 1, "characteristicID":0, "assetName": "bonus", "time": 3},
+		{"id": 2, "name": "incSpeed", "value": 1.5, "speed": 5, "itemID": 2, "characteristicID":0, "assetName": "bonus", "time": 3},
+		{"id": 3, "name": "decSpeed", "value": 0.5, "speed": 5, "itemID": 2, "characteristicID":0, "assetName": "bonus", "time": 3}			
+	],
+
+	"bonusCharacteristics":[
+		{"id":0, "name":"speed"},
+		{"id":1, "name":"size"}
 	],
 
 	"bonusItems": [
@@ -11,10 +19,10 @@
 	],
 
 	"blocks": [
-		{"id": 0, "scores": 5, "lives": 1, "colorID": 0, "bonusProbability": 0, "assetName": "block"},
-		{"id": 0, "scores": 5, "lives": 2, "colorID": 1, "bonusProbability": 0, "assetName": "block"},		
-		{"id": 0, "scores": 5, "lives": 3, "colorID": 2, "bonusProbability": 0, "assetName": "block"},
-		{"id": 0, "scores": 5, "lives": 999, "colorID": 3, "bonusProbability": 0, "assetName": "block"}		
+		{"id": 0, "scores": 5, "lives": 1, "colorID": 0, "bonusProbability": [100, 0, 0, 0], "assetName": "block"},
+		{"id": 0, "scores": 5, "lives": 2, "colorID": 1, "bonusProbability": [0, 100, 0, 0], "assetName": "block"},		
+		{"id": 0, "scores": 5, "lives": 3, "colorID": 2, "bonusProbability": [0, 0, 100, 0], "assetName": "block"},
+		{"id": 0, "scores": 5, "lives": -1, "colorID": 3, "bonusProbability": [], "assetName": "block"}		
 	],
 
 	"colors":[
@@ -25,21 +33,16 @@
 	],
 
 	"ball":{
-		"speed":5
+		"speed":8,
+		"assetName": "ball"
 	},
 
 	"stick":{
-		"speed":5,
+		"speed":10,
 		"assetName": "stick"
 	},
 
 	"player":{
-		"lives":5
-	},
-
-	"levels":[
-		{"id":0, "bonuses":[]},
-		{"id":1, "bonuses":[]},
-		{"id":3, "bonuses":[]}
-	]
+		"lives":3
+	}
 }

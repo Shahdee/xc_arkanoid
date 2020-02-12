@@ -24,5 +24,41 @@ public class Block
 
     public void Setup(BlockModel m){
         model = m;
+
+        CreateVisual();
+        SetParams();
     }
+
+    void SetParams(){
+        Color c = GameMan.instance.GetItemMan().GetColor(model.colorID);
+        visual.SetParams(model.lives, c);
+    }
+
+    public void Reset(){
+        ReturnVisual();
+    } 
+
+    public bool isAlive(){
+        return model.lives > 0;
+    }
+
+    void CreateVisual(){
+        GameObject gobject = GameMan.instance.GetEntityMan().GetEntity(model.assetName);
+        gobject.SetActive(true);     
+        gobject.transform.SetParent(GameMan.instance.GetLevelMan().trsParent);
+        visual = gobject.GetComponent<BlockVis>();
+    }
+
+    public void Place(float x, float y){
+        visual.PlaceTo(x, y);
+    }
+
+    void ReturnVisual(){
+        if (visual != null){
+            GameMan.instance.GetEntityMan().ReturnEntity(visual);
+            visual = null;
+        }   
+    }
+
+
 }

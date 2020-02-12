@@ -8,24 +8,24 @@ using UnityEngine.Events;
 public class InputMan : MonoBehaviour, IUpdatable
 {
 
+    public float horizontal = 0;
+    public float vertical = 0;
+
+    public float GetHorizontal(){
+        return horizontal;
+    }
+
+    public float GetVertical(){
+        return vertical;
+    }
+
     public void UpdateMe(float deltaTime)
     {
         UpdateAxes();
     }
 
-    public float m_Horizontal = 0;
-    public float m_Vertical = 0;
-
-    public float GetHorizontal(){
-        return m_Horizontal;
-    }
-
-    public float GetVertical(){
-        return m_Vertical;
-    }
-
     void UpdateAxes(){
-        m_Horizontal = Input.GetAxis("Horizontal");
-        m_Vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
     }
 }

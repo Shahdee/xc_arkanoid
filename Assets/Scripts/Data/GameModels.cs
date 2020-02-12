@@ -13,16 +13,27 @@ namespace Game.Models{
             Ball
         }
 
+        public enum BonusCharacteristic{
+            Speed,
+            Size,
+        }
+
         public int id;
-        public bool positive;
         public string name;
         public int itemID;
+        public string assetName;
+        public int characteristicID;
         public int time;
+        public int speed;
+        public float value;
 
         public BonusItem bonusItem;
 
-        public void AssignBonusItem(){
+        public BonusCharacteristic bonusCharacteristic;
+
+        public void AssignBonus(){
             bonusItem = (BonusItem)itemID;
+            bonusCharacteristic = (BonusCharacteristic)characteristicID;
         }
     }
 
@@ -33,7 +44,7 @@ namespace Game.Models{
         public int scores;
         public int lives;
         public int colorID;
-        public float bonusProbability;
+        public int[] bonusProbability;
         public string assetName;
     }
 
@@ -57,12 +68,14 @@ namespace Game.Models{
     [System.Serializable]
     public class BallModel{
         public int speed;
+        public string assetName;
     }
 
 
     [System.Serializable]
     public class StickModel{
         public int speed;
+        public string assetName;
     }
 
 
@@ -71,13 +84,7 @@ namespace Game.Models{
         public int lives;
     }
 
-    [System.Serializable]
-    public class LevelModel{
-        public int id;
-        public int[] bonuses;
-    }
-
-    // TODO - optional - update json from editor 
+    // TODO - update json from editor in the future
 
 }
 

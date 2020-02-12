@@ -7,7 +7,6 @@ public class ItemMan
 {
     BonusModel[] allBonuses;
     BlockModel[] allBlocks;
-    LevelModel[] allLevels;
     ColorModel[] allColors;
 
     BallModel _ballModel;
@@ -37,7 +36,6 @@ public class ItemMan
 
         PrepareBlocks(data);
         PrepareBonuses(data);
-        PrepareLevels(data);
         PrepareColors(data);
         PrepareCommon(data);
 
@@ -51,13 +49,8 @@ public class ItemMan
         allBonuses = data.bonuses;
 
         for (int i=0; i<allBonuses.Length; i++){
-            allBonuses[i].AssignBonusItem();
+            allBonuses[i].AssignBonus();
         }
-    }
-
-    void PrepareLevels(GameData data){
-        allLevels = data.levels;
-
     }
 
     void PrepareColors(GameData data){
@@ -75,7 +68,7 @@ public class ItemMan
     }
 
     public BlockModel GetBlock(Color c){
-        var colorModel = GetColor(c);
+        var colorModel = GetColorModel(c);
         if (colorModel != null){
             var blockModel = GetBlock(colorModel.id);
             return blockModel;
@@ -91,7 +84,24 @@ public class ItemMan
         return null;
     }
 
-    ColorModel GetColor(Color c){
+    public BonusModel GetBonus(int id){
+        for (int i=0; i<allBonuses.Length; i++){
+            if (allBonuses[i].id == id)
+                return allBonuses[i];
+        }
+        return null;
+    }
+
+
+    public Color GetColor(int id){
+        for (int i=0; i<allColors.Length; i++){
+            if (allColors[i].id == id)
+                return allColors[i].color;
+        }
+        return Color.gray;
+    }
+
+    ColorModel GetColorModel(Color c){
 
         // Debug.Log("c " + c);
 
@@ -105,11 +115,5 @@ public class ItemMan
         // Debug.Log(":(");
         return null;
     }
-
-    // has bonus on level ?
-    // has bonus of id on level ? 
-
-    // color to block id/type 
-
 
 }

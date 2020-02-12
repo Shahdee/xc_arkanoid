@@ -43,4 +43,78 @@ public static class EventMan
             onGameEndedCallback();
     }
 #endregion
+
+
+#region Gameplay events 
+
+    public static UnityAction<BallVis> onBallDieCallback;
+
+    public static void AddBallDieListener(UnityAction<BallVis> listener){
+        onBallDieCallback += listener;
+    }
+
+    public static void OnBallDie(BallVis ball){
+        if (onBallDieCallback != null)
+            onBallDieCallback(ball);
+    }
+
+    public static UnityAction<int> onPlayerLivesChangeCallback;
+
+    public static void AddPlayerLivesChangeListener(UnityAction<int> listener){
+        onPlayerLivesChangeCallback += listener;
+    }
+
+    public static void OnPlayerLivesChange(int lives){
+        if (onPlayerLivesChangeCallback != null)
+            onPlayerLivesChangeCallback(lives);
+    }
+
+    public static UnityAction<int> onLevelChangeCallback;
+
+    public static void AddLevelChnageCallback(UnityAction<int> listener){
+        onLevelChangeCallback += listener;
+    }
+
+    public static void OnLevelChange(int level){
+        if (onLevelChangeCallback != null)
+            onLevelChangeCallback(level);
+    }
+
+
+    public static UnityAction<BlockVis> onBlockDieCallback;
+
+    public static void AddBlockDieListener(UnityAction<BlockVis> listener){
+        onBlockDieCallback += listener;
+    }
+
+    public static void OnBlockDie(BlockVis ball){
+        if (onBlockDieCallback != null)
+            onBlockDieCallback(ball);
+    }
+
+#region bonus 
+    public static UnityAction<BonusVis> onBonusDieCallback;
+
+    public static void AddBonusDieListener(UnityAction<BonusVis> listener){
+        onBonusDieCallback += listener;
+    }
+
+    public static void OnBonusDie(BonusVis bonus){
+        if (onBonusDieCallback != null)
+            onBonusDieCallback(bonus);
+    }
+
+    public static UnityAction<BonusVis> onBonusCatchCallback;
+
+    public static void AddBonusCatchListener(UnityAction<BonusVis> listener){
+        onBonusCatchCallback += listener;
+    }
+
+    public static void OnBonusCatch(BonusVis bonus){
+        if (onBonusCatchCallback != null)
+            onBonusCatchCallback(bonus);
+    }
+#endregion
+
+#endregion
 }

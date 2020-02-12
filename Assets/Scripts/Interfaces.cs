@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Models;
 
- // bonus
 public interface IBonusable{
-    // TODO 
+
+    void ApplyBonus(BonusModel model);
+
+    void RemoveBonus(BonusModel model);
+    
+}
+
+public interface IInitable{
+    void Init();
 }
 
 public interface IUpdatable{
@@ -13,5 +21,5 @@ public interface IUpdatable{
 
 // physics 
 public interface IFixUpdatable{
-    void FixUpdateMe(float deltaTime);
+    void UpdatePhysics(float deltaTime);
 }

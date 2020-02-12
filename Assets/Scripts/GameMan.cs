@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class GameMan : MonoBehaviour
 {
-    [SerializeField]
-    GUIMan guiMan;
+    public GUIMan guiMan;
 
-    [SerializeField]
-    EntityMan entityMan;
+    public EntityMan entityMan;
     
     ItemMan itemMan;
 
-    [SerializeField]
-    LevelMan levelMan;
+    public LevelMan levelMan;
     DataLoader dataLoader;
     Player player;
 
-    [SerializeField]
-    InputMan inputMan;
-
-    [SerializeField]
-    MapParser mapParser;
+    public InputMan inputMan;
+    public MapParser mapParser;
 
     static GameMan _instance;
     public static GameMan instance{
@@ -53,6 +47,10 @@ public class GameMan : MonoBehaviour
         return mapParser;
     }
 
+    public InputMan GetInputMan(){
+        return inputMan;
+    }
+
     public enum GameStates{
         Menu,
         Play,
@@ -76,6 +74,7 @@ public class GameMan : MonoBehaviour
 
         itemMan = new ItemMan();
         dataLoader = new DataLoader();
+        player = new Player();
 
         EventMan.AddGameStartListener(GameStarted);
         EventMan.AddGameEndedListener(GameEnded);
@@ -89,14 +88,18 @@ public class GameMan : MonoBehaviour
         var gameData = dataLoader.GetGameData();
         itemMan.PrepareItems(gameData);
 
-        StartGame(); // tmp
+        player.Setup(gameData.player);
     }
 
     public void StartGame(){
 
-        // player lives 
+        player.Restore();
 
         levelMan.StartLevel();
+    }
+
+    public void RestartLevel(){
+        
     }
 
 #region Level events 
@@ -113,7 +116,7 @@ public class GameMan : MonoBehaviour
     void FixedUpdate(){
         if (currGameState == GameStates.Play)
         {
-            levelMan.FixUpdateMe(Time.deltaTime);
+            levelMan.UpdatePhysics(Time.fixedDeltaTime);
         }
     }
     
