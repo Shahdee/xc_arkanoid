@@ -19,9 +19,9 @@
 	],
 
 	"blocks": [
-		{"id": 0, "scores": 5, "lives": 1, "colorID": 0, "bonusProbability": [100, 0, 0, 0], "assetName": "block"},
-		{"id": 0, "scores": 5, "lives": 2, "colorID": 1, "bonusProbability": [0, 100, 0, 0], "assetName": "block"},		
-		{"id": 0, "scores": 5, "lives": 3, "colorID": 2, "bonusProbability": [0, 0, 100, 0], "assetName": "block"},
+		{"id": 0, "scores": 5, "lives": 1, "colorID": 0, "bonusProbability": [25, 25, 25, 25], "assetName": "block"},
+		{"id": 0, "scores": 5, "lives": 2, "colorID": 1, "bonusProbability": [0, 35, 0, 0], "assetName": "block"},		
+		{"id": 0, "scores": 5, "lives": 3, "colorID": 2, "bonusProbability": [0, 0, 40, 0], "assetName": "block"},
 		{"id": 0, "scores": 5, "lives": -1, "colorID": 3, "bonusProbability": [], "assetName": "block"}		
 	],
 

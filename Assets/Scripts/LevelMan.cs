@@ -308,24 +308,26 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
 
         for (int i=0; i<block.model.bonusProbability.Length; i++){
 
-            min = max - block.model.bonusProbability[i];
-            max-=1;
+            if (block.model.bonusProbability[i] > 0){
+                min = max - block.model.bonusProbability[i];
+                max-=1;
 
-            // Debug.Log("try dispatch bonus min " + min + " max " + max + " ran " + rand);
+                Debug.Log("try dispatch bonus min " + min + " max " + max + " ran " + rand);
 
-            if (rand >= min && rand <= max){
+                if (rand >= min && rand <= max){
 
-                var model = GameMan.instance.GetItemMan().GetBonus(i);
-                if (model != null){
-                    var bonus = new Bonus();
-                    bonuses.Add(bonus);
-                    bonus.Setup(model);
-                    bonus.Place(block.visual.transformObj.position);
+                    var model = GameMan.instance.GetItemMan().GetBonus(i);
+                    if (model != null){
+                        var bonus = new Bonus();
+                        bonuses.Add(bonus);
+                        bonus.Setup(model);
+                        bonus.Place(block.visual.transformObj.position);
+                    }
+                    break;
                 }
-                break;
-            }
-            else{
-                max = min; 
+                else{
+                    max = min; 
+                }
             }
         }
     }

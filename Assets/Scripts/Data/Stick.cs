@@ -50,10 +50,10 @@ public class Stick : IUpdatable, IFixUpdatable, IBonusable
       }     
    }
 
-    public void ApplyBonus(BonusModel model){
-        switch(model.bonusCharacteristic){
+    public void ApplyBonus(BonusModel m){
+        switch(m.bonusCharacteristic){
             case BonusModel.BonusCharacteristic.Speed:
-                float newSpeed = model.speed * model.value;
+                float newSpeed = model.speed * m.value;
                 visual.SetParams(newSpeed);
             break;
 
@@ -63,8 +63,8 @@ public class Stick : IUpdatable, IFixUpdatable, IBonusable
         }
     }
 
-    public void RemoveBonus(BonusModel model){
-        switch(model.bonusCharacteristic){
+    public void RemoveBonus(BonusModel m){
+        switch(m.bonusCharacteristic){
             case BonusModel.BonusCharacteristic.Speed:
                 visual.SetParams(model.speed);
             break;
