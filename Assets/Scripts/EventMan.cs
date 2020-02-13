@@ -92,6 +92,17 @@ public static class EventMan
             onBlockDieCallback(ball);
     }
 
+    public static UnityAction<Collider2D> onBlockHitCallback;
+
+    public static void AddBlockHitListener(UnityAction<Collider2D> listener){
+        onBlockHitCallback += listener;
+    }
+
+    public static void OnBlockHit(Collider2D collider){
+        if (onBlockHitCallback != null)
+            onBlockHitCallback(collider);
+    }
+
 #region bonus 
     public static UnityAction<BonusVis> onBonusDieCallback;
 

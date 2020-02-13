@@ -36,7 +36,7 @@ public class Player
    public void ReduceLives(){
        currLives--;
 
-       Debug.Log("lives left " + currLives);
+    //    Debug.Log("lives left " + currLives);
 
        EventMan.OnPlayerLivesChange(currLives);
    }

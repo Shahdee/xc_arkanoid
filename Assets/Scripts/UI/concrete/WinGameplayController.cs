@@ -8,8 +8,8 @@ public class WinGameplayController : WinControllerBase
        
     }
 
-    public void SendSmth(){
-        
+    public void SendNext(){
+        GameMan.instance.StartNextLevel();
     }
 
 }

@@ -68,7 +68,8 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
     void SubscribeToEvents(){
 
         EventMan.AddBallDieListener(BallDied);
-        EventMan.AddBlockDieListener(BlockDie);
+        EventMan.AddBlockHitListener(BlockHit);
+        // EventMan.AddBlockDieListener(BlockDie);
 
         EventMan.AddBonusDieListener(BonusDie);
         EventMan.AddBonusCatchListener(BonusCatch);
@@ -121,6 +122,11 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
         EventMan.OnGameStart();
 
         MoveToNextLevel();
+    }
+
+    // for tests 
+    public void StartNextLevel(){
+        LevelComplete();
     }
 
     // when we still have lives 
@@ -186,7 +192,6 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
         ballPrimary.PutOnStick(stickPrimary);
     }
 
-    Vector3 posTmp = new Vector3();
     static float tolerance = 0.5f;
 
     void PlaceBlocks(int level){
@@ -221,7 +226,7 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
                     block.Setup(blockModel);
                     block.Place(x, y);
 
-                    if (block.isAlive())
+                    if (block.isBreakable())
                         blocksToKill++;
                 }
             }
@@ -245,18 +250,35 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
             EventMan.OnGameEnded();
     }
 
-    void BlockDie(BlockVis vis){
-        var block = GetBlock(vis);
+    void BlockHit(Collider2D collider){
+        var block = GetBlock(collider);
         if (block != null){
-            TryDispatchBonus(block);
-            block.Reset();
+
+            if (block.isBreakable() && ! block.isAlive()){
+                TryDispatchBonus(block);
+                block.Reset();
+
+                killedBlocks++;
+
+                if (killedBlocks == blocksToKill) 
+                    LevelComplete();
+
+            }
         }
-
-        killedBlocks++;
-
-        if (killedBlocks == blocksToKill) 
-            LevelComplete();
     }
+
+    // void BlockDie(BlockVis vis){
+    //     var block = GetBlock(vis);
+    //     if (block != null){
+    //         TryDispatchBonus(block);
+    //         block.Reset();
+    //     }
+
+    //     killedBlocks++;
+
+    //     if (killedBlocks == blocksToKill) 
+    //         LevelComplete();
+    // }
 
     void BonusDie(BonusVis vis){
         // Debug.Log("bonus died");
@@ -306,6 +328,14 @@ public class LevelMan : MonoBehaviour, IUpdatable, IFixUpdatable
                 max = min; 
             }
         }
+    }
+
+    Block GetBlock(Collider2D collider){
+        for (int i=0; i<blocks.Count; i++){
+            if (blocks[i].visual != null && blocks[i].visual.colliderObj == collider)
+                return blocks[i];
+        }
+        return null;
     }
 
 

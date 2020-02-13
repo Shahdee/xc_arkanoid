@@ -16,11 +16,11 @@ public class EntityMan : MonoBehaviour
 
     public List<PoolledEntity> entitiesToPool;
     
-    Transform trsPoolParent;
+    public Transform trsPoolParent;
     List<GameObject> objectsInPool;
     
     void Awake(){
-        trsPoolParent = transform;
+        // trsPoolParent = transform;
         objectsInPool = new List<GameObject>();
 
         foreach(var entity in entitiesToPool){
@@ -73,6 +73,6 @@ public class EntityMan : MonoBehaviour
         // Debug.Log("ReturnToPool " + obj);
 
         robj.gameObject.transform.SetParent(trsPoolParent);
-        robj.gameObject.SetActive(false);
+        // robj.gameObject.SetActive(false);
     }
 }

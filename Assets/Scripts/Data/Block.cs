@@ -38,8 +38,12 @@ public class Block
         ReturnVisual();
     } 
 
-    public bool isAlive(){
+    public bool isBreakable(){
         return model.lives > 0;
+    }
+
+    public bool isAlive(){
+        return visual.isAlive();
     }
 
     void CreateVisual(){

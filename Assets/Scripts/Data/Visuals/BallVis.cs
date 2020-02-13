@@ -39,16 +39,15 @@ public class BallVis : BaseVis
     }
 
     public override void UpdatePhysics(float delta){
+
+        hitBlock = false;
+
         CheckResting();
 
         UpdateMove(delta);
     }
 
-    public override void UpdateMe(float delta){
-
-      
-    }
-
+    bool hitBlock = false;
     Vector3 moveDir = new Vector3();
     float moveDeltaX = 0;
     Vector3 posTmp;
@@ -91,7 +90,7 @@ public class BallVis : BaseVis
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        // Debug.Log(" enter " + col.name);
+        // Debug.Log(col.name);
 
          // on floor 
         if (col.tag == ReusableObject.tgFloor)
@@ -106,53 +105,69 @@ public class BallVis : BaseVis
             return;
         }
 
-        // block or wall
-        if (col.tag == ReusableObject.tgBlock || col.tag == ReusableObject.tgWall){
+        if (col.tag == ReusableObject.tgWall){
             Bounce(col);
+            return;
+        }
+
+        //block
+        if (col.tag == ReusableObject.tgBlock){
+
+            if (! hitBlock){
+                hitBlock = true; // to allow only 1 block hit per frame 
+                Bounce(col);
+            }
+                
+            EventMan.OnBlockHit(col);
             return;
         }       
     }
 
     Vector3 vecTmp2;
     float value;
+    float deltaX, deltaY;
 
-    void Bounce(Collider2D collider){
-        posTmp.x = transformObj.position.x - collider.transform.position.x;
-        posTmp.y = transformObj.position.y - collider.transform.position.y;
+    void Bounce(Collider2D coll){
 
-        vecTmp.x = Mathf.Abs(posTmp.x) - collider.bounds.size.x;
-        vecTmp.y = Mathf.Abs(posTmp.y) - collider.bounds.size.y;
+        // Debug.Log("last dir " + moveDir.ToString());
 
-        if (vecTmp.y > vecTmp.x){
-            // Debug.Log("x");
+        // if (coll.tag == ReusableObject.tgBlock){
+
+            // Debug.Log("coll.bounds.size " + coll.bounds.size);
+            // Debug.Log("coll.bounds.extents " + coll.bounds.extents);
+            // Debug.Log("coll.bounds.min " + coll.bounds.min);
+            // Debug.Log("coll.bounds.max " + coll.bounds.max);
+            // Debug.Log("minX " + minX + " maxX " + maxX + " minY " + minY + " maxY " + maxY);
+
+            // Debug.Log("transformObj.position.x " + transformObj.position.x + " / transformObj.position.y " + transformObj.position.y);
+        // }
+
+        // top or bottom 
+        if (transformObj.position.x >= coll.bounds.min.x && transformObj.position.x <= coll.bounds.max.x){
             moveDir.y *= -1;
+            // Debug.Log("new dir " + moveDir.ToString());
+            return;
+        }
+
+        // left or right 
+        if (transformObj.position.y >= coll.bounds.min.y && transformObj.position.y <= coll.bounds.max.y){
+            moveDir.x *= -1;
+            // Debug.Log("new dir " + moveDir.ToString());
+            return;
+        }
+
+        deltaX = Mathf.Abs(transformObj.position.x - coll.transform.position.x) - coll.bounds.size.x;
+        deltaY = Mathf.Abs(transformObj.position.y - coll.transform.position.y) - coll.bounds.size.y;
+
+        if (deltaX > deltaY){
+            moveDir.x *= -1;
+            // Debug.Log("new dir " + moveDir.ToString());
+            return;
         }
         else{
-            moveDir.x *= -1;
-            // Debug.Log("y");                
+            moveDir.y *= -1;
+            // Debug.Log("new dir " + moveDir.ToString());
+            return;
         }
-
-        posTmp.Normalize();
-
-        value = Mathf.Abs(Mathf.Max(vecTmp.x, vecTmp.y));
-
-        vecTmp2 = transformObj.position;
-
-        vecTmp2.x += posTmp.x * value;
-        vecTmp2.y += posTmp.y * value;
-        
-        transformObj.position = vecTmp2;
     }
-
-    // void OnTriggerExit2D(Collider2D col)
-    // {
-    //     Debug.Log(" exit " + col.name);
-    // }
-
-    //  void OnTriggerStay2D(Collider2D col)
-    // {
-    //     Debug.Log(" stay " + col.name);
-    // }
-
-
 }

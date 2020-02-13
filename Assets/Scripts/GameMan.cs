@@ -92,14 +92,12 @@ public class GameMan : MonoBehaviour
     }
 
     public void StartGame(){
-
         player.Restore();
-
         levelMan.StartLevel();
     }
 
-    public void RestartLevel(){
-        
+    public void StartNextLevel(){
+        levelMan.StartNextLevel();
     }
 
 #region Level events 

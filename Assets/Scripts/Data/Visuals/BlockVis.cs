@@ -29,10 +29,14 @@ public class BlockVis : BaseVis
         // to ignore immortal block
         if (currLives > 0){
             currLives--;
-            if (currLives == 0){
-                EventMan.OnBlockDie(this);
-            }  
+            // if (currLives == 0){
+            //     EventMan.OnBlockDie(this);
+            // }  
         }    
+    }
+
+    public bool isAlive(){
+        return (currLives > 0);
     }
     
     public override void UpdatePhysics(float delta){

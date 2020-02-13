@@ -8,15 +8,22 @@ public class WinGameplay : WinViewBase
     public Text lives; 
     public Text level;
 
+    public Button btnNextLevel;
+
     protected override void InInit(){
         EventMan.AddPlayerLivesChangeListener(SetLives);
         EventMan.AddLevelChnageCallback(SetLevel);
+
+        btnNextLevel.onClick.AddListener(NextClick);
     }
 
     protected override WinControllerBase CreateController(){
         return new WinGameplayController(this);;
     }
 
+    void NextClick(){
+        (m_Controller as WinGameplayController).SendNext();
+    }
 
     void SetLives(int lvs){
         lives.text = "lives " + lvs.ToString();
